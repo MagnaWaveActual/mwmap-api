@@ -93,7 +93,7 @@ class LocationsController < ApplicationController
           end
           p "condition 2 we owe this person leads"
         
-        # LocationMailer.lead_for_one_email(@prime_location[:email], @prime_location[:name], params[:s_name], params[:s_phone], params[:s_email], params[:s_message]).deliver_now
+        LocationMailer.lead_for_one_email(@prime_location[:email], @prime_location[:name], params[:s_name], params[:s_phone], params[:s_email], params[:s_message]).deliver_now
         
           @prime_location[:delivered_lead_count] = @prime_location[:delivered_lead_count] + 1
 
