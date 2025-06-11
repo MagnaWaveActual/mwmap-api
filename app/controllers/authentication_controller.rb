@@ -10,7 +10,7 @@ class AuthenticationController < ApplicationController
         object = {user_type: user.account_type, user_f_name: user.f_name, token: JsonWebToken.encode(sub: user.id) }
         render json: object
       else
-        render json: { errors: 'unauthorised' }, status: :unauthorized
+        render json: { errors: 'unauthorized' }, status: :unauthorized
       end
     end
   

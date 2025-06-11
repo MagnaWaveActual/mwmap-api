@@ -11,6 +11,6 @@ class AddColumnsToLocations < ActiveRecord::Migration[6.1]
     add_column :locations, :delivered_lead_count, :integer
     add_column :locations, :next_purchased_lead_count, :integer
     add_column :locations, :cms_id, :integer
-    add_column :locations, :loaction_active, :boolean
+    add_column :locations, :location_active, :boolean
   end
 end
