@@ -117,8 +117,8 @@ class LocationsController < ApplicationController
     locations = Location.where(location_type: params[:location_type], location_active: true).within(params[:range], :units => :miles, :origin => [params[:search_lat], params[:search_long]])
    
     @sorted_locations = locations.sort_by { |l| l["rank"]}.reverse
-    # take first item from array. if has rank > 0 this will be our sponcered practitioner. 
-    # add this to the first of the array of locatoins. 
+    # take first item from array. if has rank > 0 this will be our sponsored practitioner.
+    # add this to the first of the array of locations.
    
     @newLocations = locations.sort_by{|l| l.distance_to([params[:search_lat], params[:search_long]])}
 
