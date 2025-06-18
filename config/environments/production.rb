@@ -122,7 +122,10 @@ Rails.application.configure do
 
   config.action_mailer.default_options = { from: "leads@magnawaveportal.com" }
 
-  config.action_mailer.default_url_options[:host] = 'https://mw-map-api-8512588b5c8e.herokuapp.com'
+  # Ensure default_url_options is initialized before assigning the host.
+  config.action_mailer.default_url_options = {
+    host: 'https://mw-map-api-8512588b5c8e.herokuapp.com'
+  }
 
   config.action_mailer.delivery_method = :smtp
 
