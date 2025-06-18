@@ -111,19 +111,32 @@ Rails.application.configure do
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
-  config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   # Mailer
-  Rails.application.routes.default_url_options[:host] = 'https://mw-map-api-8512588b5c8e.herokuapp.com'
+
+  # === MODIFIED SECTION START ===
+  # === Modified by Adnan at EquinoxAgents June 12, 2025
+  
+  # Mailer settings
+  config.action_mailer.perform_deliveries = true
+
+  config.action_mailer.default_options = { from: "leads@magnawaveportal.com" }
+
+  config.action_mailer.default_url_options[:host] = 'https://mw-map-api-8512588b5c8e.herokuapp.com'
+
   config.action_mailer.delivery_method = :smtp
+
   config.action_mailer.smtp_settings = {
-      address:              'smtp.mailgun.org',
-      port:                 587,
-      domain:               'magnawaveportal.com',
-      user_name:            "leads@magnawaveportal.com",
-      password:             "MagnaWave1!2024",
-      authentication:       'plain',
-      enable_starttls_auto: true
+    address:              ENV['SMTP_ADDRESS'],
+    port:                 587,
+    domain:               ENV['SMTP_DOMAIN'],
+    user_name:            ENV['SMTP_USERNAME'], 
+    password:             ENV['SMTP_PASSWORD'],
+    authentication:       'plain',
+    enable_starttls_auto: true
   }
+
+  # === Suggest adding env variables for the username/pw above for security
+  # === MODIFIED SECTION END ===
 
 end

@@ -24,9 +24,23 @@ class LocationsController < ApplicationController
     render json: locations
   end
 
+  # === MODIFIED SECTION START ===
+  # === Modified by Adnan at EquinoxAgents June 12, 2025
+  # MOFIFIED: def test_email — modified test method for testing with custom email and password on 2025-06-14 10:54:09
+
   def send_test_email
-    LocationMailer.test_email().deliver_now
+    to = params[:to].presence || "alex@magnawavepemf.com"
+    subject = params[:subject].presence || "Test MW Email"
+
+    if to.match?(URI::MailTo::EMAIL_REGEXP)
+      LocationMailer.test_email(to, subject).deliver_now
+      render json: { message: "Test email sent to #{to}" }, status: :ok
+    else
+      render json: { error: "Invalid email address" }, status: :unprocessable_entity
+    end
   end
+
+  # === MODIFIED SECTION END ===
 
   def find_location_by_state
 
