@@ -17,7 +17,7 @@ class SendLeadWebhookJob < ApplicationJob
     request = Net::HTTP::Post.new(uri.path)
     request.set_form_data(
       "AppName" => "gn179",
-      "APIKey" => "KeapAK-0482b5739b2910688d181c875d14da43acab7a130ccc66d2c3",
+      "APIKey" => ENV["API_KEY"],
       "UserFirstName" => user_data["first_name"],
       "UserLastName"  => user_data["last_name"],
       "UserEmail"     => user_data["email"],

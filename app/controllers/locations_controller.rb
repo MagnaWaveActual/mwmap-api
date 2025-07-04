@@ -73,7 +73,7 @@ class LocationsController < ApplicationController
         
           new_phone = params[:s_phone].chars.drop(3).join
           p new_phone
-          #LocationMailer.lead_for_all_email(l[:email], params[:s_name], new_phone, params[:s_email], params[:message]).deliver_later
+          LocationMailer.lead_for_all_email(l[:email], params[:s_name], new_phone, params[:s_email], params[:message]).deliver_later
         end
 
       else
@@ -93,7 +93,7 @@ class LocationsController < ApplicationController
           end
           p "condition 2 we owe this person leads"
         
-        #LocationMailer.lead_for_one_email(@prime_location[:email], @prime_location[:name], params[:s_name], params[:s_phone], params[:s_email], params[:s_message]).deliver_now
+        LocationMailer.lead_for_one_email(@prime_location[:email], @prime_location[:name], params[:s_name], params[:s_phone], params[:s_email], params[:s_message]).deliver_now
         
           @prime_location[:delivered_lead_count] = @prime_location[:delivered_lead_count] + 1
 
@@ -103,7 +103,7 @@ class LocationsController < ApplicationController
             p "condition 3 we have ranked practitioners but do not owe leads"
               new_phone = params[:s_phone].chars.drop(3).join
               p new_phone
-             #LocationMailer.lead_for_all_email(l[:email], params[:s_name], new_phone, params[:s_email], params[:message]).deliver_later
+             LocationMailer.lead_for_all_email(l[:email], params[:s_name], new_phone, params[:s_email], params[:message]).deliver_later
           end
        end
       end
