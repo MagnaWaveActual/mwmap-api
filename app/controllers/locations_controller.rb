@@ -108,7 +108,23 @@ class LocationsController < ApplicationController
        end
       end
     end
-    
+
+    # Prepare data for ActiveJob
+    user_data = {
+      "first_name" => params[:s_name].to_s.split.first || "",
+      "last_name"  => params[:s_name].to_s.split.drop(1).join(" ") || "",
+      "email"      => params[:s_email],
+      "phone"      => params[:s_phone],
+      "zip"        => params[:s_zip]
+    }
+
+    practitioners = @sorted_locations.take(3).map do |l|
+      "#{l[:name]}, #{l[:email]}, #{l[:phone]}"
+    end
+
+    # Enqueue job to run in background, no retries
+    SendLeadWebhookJob.perform_later(user_data, practitioners)
+
     render json: @sorted_locations
   end
 
