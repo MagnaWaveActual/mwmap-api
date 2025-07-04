@@ -52,7 +52,7 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
-  # config.active_job.queue_adapter     = :resque
+  config.active_job.queue_adapter     = :sidekiq
   # config.active_job.queue_name_prefix = "auth_base_api_production"
 
   config.action_mailer.perform_caching = false
@@ -111,19 +111,28 @@ Rails.application.configure do
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
+
+  # Send emails in production
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  # Mailer
-  Rails.application.routes.default_url_options[:host] = 'https://mw-map-api-8512588b5c8e.herokuapp.com'
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-      address:              'smtp.mailgun.org',
-      port:                 587,
-      domain:               'magnawaveportal.com',
-      user_name:            "leads@magnawaveportal.com",
-      password:             "MagnaWave1!2024",
-      authentication:       'plain',
-      enable_starttls_auto: true
+
+  # Default URL options
+  config.action_mailer.default_url_options = {
+    host: 'mw-map-api-8512588b5c8e.herokuapp.com',
+    protocol: 'https'
   }
 
+  # Mail delivery method
+  config.action_mailer.delivery_method = :smtp
+
+  # SMTP settings for Mailgun
+  config.action_mailer.smtp_settings = {
+    address:              'smtp.mailgun.org',
+    port:                 587,
+    domain:               'magnawaveportal.com',
+    user_name:            'leads@magnawaveportal.com',
+    password:             'MagnaWave1!2024', # Consider moving this to credentials or ENV variable
+    authentication:       'plain',
+    enable_starttls_auto: true
+  }
 end
