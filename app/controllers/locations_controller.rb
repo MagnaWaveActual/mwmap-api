@@ -115,7 +115,7 @@ class LocationsController < ApplicationController
       "last_name"  => params[:s_name].to_s.split.drop(1).join(" ") || "",
       "email"      => params[:s_email],
       "phone"      => params[:s_phone],
-      "zip"        => params[:s_zip] || '00000'
+      "zip"        => params[:s_zip]
     }
 
     practitioners = @sorted_locations.take(3).map do |l|
